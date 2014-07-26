@@ -1,3 +1,8 @@
 <div class="kitten">
-  <%= image_tag kitten.image %>
+  <%= link_to (image_tag kitten.image), new_kitten_categorizations_path(kitten.id), class: "kitten-link" %>
+  <ul class="categorizations">
+    <% kitten.categorizations.each do |category| %>
+      <ul><%= Category.find(category.category_id).name %></ul>
+    <% end %>
+  </ul>
 </div>

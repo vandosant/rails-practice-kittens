@@ -1,0 +1,5 @@
+<%= form_for @categorization, url: kitten_categorizations_path do |f| %>
+  <%= f.label :category_id %>
+  <%= f.select :category_id, Category.all.collect { |c| [c.name, c.id] } %>
+  <%= f.submit "Add Category" %>
+<% end %>
