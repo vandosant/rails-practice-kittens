@@ -4,8 +4,13 @@ class CategorizationsController < ApplicationController
   end
 
   def create
-    Categorization.create({:kitten_id => params[:kitten_id]}.merge(allowed_parameters))
-    redirect_to root_path
+    categorization = Categorization.new({:kitten_id => params[:kitten_id]}.merge(allowed_parameters))
+    if categorization.save
+      redirect_to root_path
+    else
+      @categorization = categorization
+      render :new
+    end
   end
 
   private

@@ -1,5 +1,12 @@
 <%= form_for @categorization, url: kitten_categorizations_path do |f| %>
+  <% if @categorization.errors.present? %>
+    <div class="errors">
+      <% @categorization.errors.full_messages.each do |msg| %>
+        <%= msg %>
+      <% end %>
+    </div>
+  <% end %>
   <%= f.label :category_id %>
-  <%= f.select :category_id, Category.all.collect { |c| [c.name, c.id] } %>
+  <%= f.select :category_id, Category.all.collect { |c| [c.name, c.id] }, include_blank: true %>
   <%= f.submit "Add Category" %>
 <% end %>
