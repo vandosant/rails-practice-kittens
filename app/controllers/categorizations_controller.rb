@@ -5,13 +5,12 @@ class CategorizationsController < ApplicationController
   end
 
   def create
-    Categorization.create(categorization_parameters.merge({kitten_id: params[:kitten_id]}))
-    redirect_to root_path
-  end
-
-  private
-
-  def categorization_parameters
-    params.require(:categorization).permit(:category_id)
+    @kitten = Kitten.find(params[:kitten_id])
+    @categorization = @kitten.categorizations.new(params.require(:categorization).permit(:category_id))
+    if @kitten.save
+      redirect_to root_path
+    else
+      render :new
+    end
   end
 end
